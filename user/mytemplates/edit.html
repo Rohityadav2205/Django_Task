@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>edited</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+</head>
+<body>
+<form method="POST" class="get-form" action="/userapp/update?id={{users.id}}">
+    <input type="hidden" name="id" value="{{users.id}}">
+        {% csrf_token %}
+    <div class="container">
+<br>
+    <div class="form-group row">
+    <label class="col-sm-1 col-form-label"></label>
+    <div class="col-sm-4">
+    <h3>Update Details</h3>
+    </div>
+  </div>
+    <div class="form-group row">
+    <label class="col-sm-2 col-form-label">user_name:</label>
+    <div class="col-sm-4">
+        <input type="text" name="user_name" id="id_user_name" required maxlength="100" value="{{ users.user_name }}"/>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">user_email:</label>
+    <div class="col-sm-4">
+        <input type="text" name="user_email" id="id_user_email" required maxlength="100" value="{{ users.user_email }}" />
+    </div>
+  </div>
+    <div class="form-group row">
+    <label class="col-sm-2 col-form-label">mobile_number:</label>
+    <div class="col-sm-4">
+        <input type="number" name="mobile_number" id="id_mobile_number" required maxlength="10" value="{{ users.mobile_number }}" />
+    </div>
+  </div>
+
+    <div class="form-group row">
+    <label class="col-sm-1 col-form-label"></label>
+    <div class="col-sm-4">
+    <button type="submit" class="btn btn-success">Update</button>
+    </div>
+  </div>
+    </div>
+</form>
+
+  <center><a href="/userapp/retrieve" class="btn btn-primary"><h2>users data</h2></a></center>
+
+</body>
+</html>  

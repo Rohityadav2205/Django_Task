@@ -1,7 +1,5 @@
 from django.core import serializers
-from django.shortcuts import HttpResponse,render
-from django.http import JsonResponse
-
+from django.shortcuts import HttpResponse
 
 from .models import userModel
 
@@ -42,13 +40,24 @@ def edit(request):
     try:
         users = userModel.objects.get(id=id)
         print(users)
-        users.user_name="shubham";
-        users.user_email="subh@gmail.com";
-        users.mobile_number="8899900556";
+        users.user_name = "harsh";
+        users.user_email = "subh@123.com";
+        users.mobile_number = "8899900556";
         users.save()
         users = [users]
     except:
         return HttpResponse("No data")
+    output = serializers.serialize("json", users)
+    return HttpResponse(output, content_type="application/json")
+
+
+def show1data(request):
+    id = request.GET["id"]
+
+    users = userModel.objects.get(id=id)
+    # users.save()
+    users = [users]
+
     output = serializers.serialize("json", users)
     return HttpResponse(output, content_type="application/json")
 
@@ -59,7 +68,6 @@ def update(request):
     try:
 
         if request.POST:
-
             user_name = request.POST["user_name"]
             user_email = request.POST["user_email"]
             mobile_number = request.POST["mobile_number"]
@@ -67,13 +75,12 @@ def update(request):
             users.user_email = user_email
             users.mobile_number = mobile_number
 
-
             users.save()
             print(users)
             users = [users]
 
     except:
-        error ={"status":"failed"}
+        error = {"status": "failed"}
         return HttpResponse("data update")
 
     output = serializers.serialize("json", users)

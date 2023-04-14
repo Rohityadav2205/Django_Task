@@ -9,6 +9,7 @@ urlpatterns = [
     path("create", views.create),
     path("retrieve", views.retrieve),
     path("edit", views.edit),
+    path("show1data", views.show1data),
     path("delete", views.delete),
     path("update", views.update),
 path("jsonall", views.jsonall),

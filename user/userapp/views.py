@@ -1,5 +1,7 @@
 from django.core import serializers
 from django.shortcuts import HttpResponse
+from django.http import JsonResponse
+
 
 from .models import userModel
 
@@ -7,20 +9,30 @@ from .models import userModel
 # Create your views here.
 
 def create(request):
-    user_name = request.GET["user_name"]
-    user_email = request.GET["user_email"]
-    mobile_number = request.GET["mobile_number"]
-    print("mobile number", mobile_number)
+    user_name= 0
+    user_email = 0
+    mobile_number = 0
 
-    ms = userModel()
-    ms.user_name = user_name
-    ms.user_email = user_email
-    ms.mobile_number = mobile_number
+    submit = 0
+    if request.GET:
+        user_name = request.GET["user_name"]
+        user_email = request.GET["user_email"]
+        mobile_number = request.GET["mobile_number"]
+        print("mobile number", mobile_number)
 
-    ms.save()
+        pk = userModel()
+        pk.user_name = user_name
+        pk.user_email = user_email
+        pk.mobile_number = mobile_number
 
-    output = serializers.serialize("json", [ms])
-    return HttpResponse(output, content_type="application/json")
+        pk.save()
+
+    output = serializers.serialize("json", [pk])
+    response = HttpResponse(output, content_type="application/json")
+    # return HttpResponse(output, content_type="application/json")
+    response["Access-Control-Allow-Origin"] = '*'
+    response["Cross-Origin-Opener-Policy"] = '*'
+    return response
 
 
 def jsonall(request):
